@@ -1,0 +1,489 @@
+@import "../../node_modules/font-awesome/css/font-awesome.css";
+
+$blue: #2196f3;
+$dingy: #495b6a;
+$white: #ffffff;
+$purple: #673ab7;
+$yellow: #ffeb3b;
+$primary: #303f9f;
+$lightPrimary: #c5cae9;
+$black: #333333;
+$green: rgb(56, 197, 87);
+$accent: #ff5722;
+$avatarSize: 36px;
+$backgroundOffset: 1.5px;
+
+$nav: 100;
+
+$navHeight: 48px;
+
+$trans: 0.3s ease;
+
+* {
+  font-family: "Roboto", "Calibri", sans-serif;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: white;
+  position: relative;
+
+  .inner {
+    overflow: scroll;
+    height: 85vh;
+    padding-top: $navHeight;
+    background: $white;
+
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+
+    &::-webkit-scrollbar {
+      width: 0 !important;
+    }
+
+    .content {
+      padding: ($navHeight - ($navHeight/1.5)) / 2;
+      position: relative;
+      margin-bottom: $navHeight/2;
+    }
+  }
+
+  transition: $trans;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $navHeight;
+  z-index: $nav;
+
+  .default-nav {
+    height: $navHeight;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: $nav + 10;
+
+    background-color: $primary;
+    color: $white;
+
+    -webkit-box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.2);
+    -moz-box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.2);
+    box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.2);
+
+    .main-nav {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: $navHeight;
+      top: 0;
+
+      margin: 0;
+      padding: 0;
+      padding-left: 2%;
+
+      list-style: none;
+
+      .main-nav-item {
+        font-size: large;
+        float: left;
+        height: $navHeight;
+        margin-left: 2%;
+        position: relative;
+        line-height: $navHeight;
+        transition: $trans;
+
+        .dot {
+          height: 14px;
+          width: 14px;
+          background-color: $green;
+          border-radius: 50%;
+          display: block;
+          margin-top: ($navHeight - ($navHeight/4)) / 2;
+        }
+      }
+      transition: $trans;
+    }
+    transition: $trans;
+  }
+  transition: $trans;
+}
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: $navHeight;
+  background: $white;
+  padding: 1em;
+
+  box-shadow: 0px -3px 3px 0px rgba(50, 50, 50, 0.1);
+
+  .input {
+    height: $navHeight;
+    background: $white;
+    border: none;
+    width: calc(100% - #{$navHeight});
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding-left: 1.5%;
+    resize: none;
+    overflow: scroll;
+    padding-top: ($navHeight/4) - 8;
+
+    &:focus {
+      outline: none;
+    }
+
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+
+    &::-webkit-scrollbar {
+      width: 0 !important;
+    }
+  }
+
+  .send {
+    position: fixed;
+    height: $navHeight/1.5;
+    width: $navHeight/1.5;
+    border-radius: 50%;
+    border: 0;
+    background: $accent;
+    color: $white;
+
+    bottom: ($navHeight - ($navHeight / 1.5)) / 2;
+    right: ($navHeight - ($navHeight/1.5)) / 2;
+
+    &:before {
+      content: "";
+      background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/104946/ic_send_white_48dp.png)
+        no-repeat center center;
+      background-size: $navHeight/2.5;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.message-wrapper {
+  position: relative;
+  overflow: hidden;
+
+  width: 100%;
+  margin: (($navHeight - ($navHeight/1.5)) / 2) 0;
+  padding: (($navHeight - ($navHeight/1.5)) / 2) 0;
+
+  .circle-wrapper {
+    height: $navHeight/1.5;
+    width: $navHeight/1.5;
+    border-radius: 50%;
+  }
+
+  .text-wrapper {
+    padding: ($navHeight - ($navHeight/1.5)) / 3;
+    min-height: $navHeight/1.5;
+    margin: 0 ($navHeight - ($navHeight/1.5)) / 2;
+    box-shadow: 0px 1px 0px 0px rgba(50, 50, 50, 0.3);
+    position: relative;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    &:before {
+      content: "";
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+  }
+
+  &.them {
+    .circle-wrapper,
+    .text-wrapper {
+      float: left;
+      color: $white;
+    }
+
+    .circle-wrapper {
+      background: url("../../resources/images/bot.png") no-repeat center center;
+      background-size: $avatarSize $avatarSize;
+      background-position-y: $backgroundOffset;
+    }
+
+    .text-wrapper {
+      border-top-right-radius: 10px;
+      background: $primary;
+      max-width: 75%;
+
+      &:before {
+        border-width: 0 10px 10px 0;
+        border-color: transparent $primary transparent transparent;
+        position: absolute;
+        top: 0;
+        left: -9px;
+      }
+
+      button.btn-conversation {
+
+        display: inline-block;
+
+        margin: 2px;
+        font-size: large;
+
+        border-width: 0;
+        outline: none;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+
+        background-color: $white;
+        color: $primary;
+
+        transition: background-color 0.3s;
+      }
+
+      .btn-conversation:hover:enabled,
+      .btn-conversation:focus:enabled {
+        background-color: $accent;
+      }
+
+      button.btn-conversation {
+
+        display: inline-block;
+
+        margin: 2px;
+        font-size: large;
+
+        border-width: 0;
+        outline: none;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+
+        background-color: $white;
+        color: $primary;
+
+        transition: background-color 0.3s;
+      }
+
+      .btn-conversation:hover:enabled,
+      .btn-conversation:focus:enabled {
+        background-color: $accent;
+      }
+    }
+  }
+
+  &.me {
+    .circle-wrapper,
+    .text-wrapper {
+      float: right;
+      color: black;
+    }
+
+    .circle-wrapper {
+      background: url("../../resources/images/user.png") no-repeat center center;
+      background-size: $avatarSize $avatarSize;
+      background-position-y: $backgroundOffset;
+    }
+
+    .text-wrapper {
+      background: $lightPrimary;
+      border-top-left-radius: 10px;
+
+      &:before {
+        border-width: 10px 10px 0 0;
+        border-color: $lightPrimary transparent transparent transparent;
+        position: absolute;
+        top: 0;
+        right: -9px;
+      }
+    }
+  }
+}
+
+.wave {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  .dot {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    margin-right: 3px;
+    background: white;
+    animation: wave 1.3s linear infinite;
+
+    &:nth-child(2) {
+      animation-delay: -1.1s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: -0.9s;
+    }
+  }
+}
+
+.water-sign {
+  position: relative;
+  display: block;
+  margin: 10px auto;
+  color: darken(white, 50%);
+  font-size: x-large;
+  text-align: center;
+}
+
+.btn-refresh {
+  position: relative;
+
+  display: block;
+  margin: 30px auto;
+  font-size: large;
+  padding: 10px;
+
+  overflow: hidden;
+
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+
+  background-color: dimgray;
+  color: #ecf0f1;
+
+  transition: background-color 0.3s;
+}
+
+.btn-refresh:hover,
+.btn-refresh:focus {
+  background-color: darken($white, 50%);
+}
+
+.btn-refresh > * {
+  position: relative;
+}
+
+.btn-refresh span {
+  display: block;
+  padding: 12px 24px;
+}
+
+.btn-refresh:before {
+  content: "";
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  display: block;
+  width: 0;
+  padding-top: 0;
+
+  border-radius: 100%;
+
+  background-color: rgba(236, 240, 241, 0.3);
+
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.btn-refresh:active:before {
+  width: 120%;
+  padding-top: 120%;
+
+  transition: width 0.2s ease-out, padding-top 0.2s ease-out;
+}
+
+a:link {
+  color: $white;
+}
+
+a:visited {
+  color: $white;
+}
+
+a:hover {
+  color: $accent;
+}
+
+a:active {
+  color: darker($accent, 50%);
+}
+
+.back {
+		position: absolute;
+}
+
+.front {
+		position: relative;
+}
+
+.slow-spin {
+  -webkit-animation: fa-spin 5s infinite linear;
+  animation: fa-spin 5s infinite linear;
+}
+
+.spin-reverse {
+  animation: spin-reverse 5s infinite linear;
+}
+
+.center {
+  text-align: center;
+}
+
+@keyframes spin-reverse {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes wave {
+  0%,
+  60%,
+  100% {
+    transform: initial;
+  }
+
+  30% {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 560px) {
+  .wrapper {
+    width: 100%;
+    height: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    transform: translateX(0);
+
+    .inner {
+      height: 100%;
+      height: 100vh;
+    }
+  }
+}

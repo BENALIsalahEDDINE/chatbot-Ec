@@ -1,0 +1,77 @@
+<div class="wrapper">
+  <nav class="nav" id="nav">
+    <div class="default-nav">
+      <div class="main-nav">
+        <div class="main-nav-item">
+          <span class="dot"></span>
+        </div>
+        <div class="main-nav-item">STP Chatbot</div>
+      </div>
+    </div>
+  </nav>
+  <div class="inner" id="inner" #scrollable [scrollTop]="scrollable.scrollHeight">
+    <div class="content" id="content">
+      <div *ngIf="!connectionError">
+        <div *ngFor="let msg of messages">
+          <div *ngIf="msg.author === 'user'">
+            <div class="message-wrapper me">
+              <div class="circle-wrapper"></div>
+              <div class="text-wrapper">{{ msg.message }}</div>
+            </div>
+          </div>
+          <div *ngIf="msg.author === 'bot'">
+            <div *ngFor="let content of msg.response; let i = index;">
+              <div class="message-wrapper them">
+                <div class="circle-wrapper"></div>
+                <div class="text-wrapper">
+                  <div *ngIf="content === 'How useful was this conversation?'">
+                    <div>{{ content }}</div>
+                    <button [disabled]="isMessageLast(msg)" *ngFor="let score of scores" class="btn-conversation" (click)="evaluateUsability(score)">{{ score }}</button>
+                  </div>
+                  <div *ngIf="content === 'How are you satisfied with chatbot help?'">
+                    <div>{{ content }}</div>
+                    <button [disabled]="isMessageLast(msg)" *ngFor="let score of scores" class="btn-conversation" (click)="evaluateSatisfaction(score)">{{ score }}</button> 
+                  </div>
+                  <div *ngIf="content !== 'How useful was this conversation?' && content !== 'How are you satisfied with chatbot help?'">
+                      {{ content }}
+                  </div>
+                  <div *ngIf="msg.categories">
+                    <div *ngIf="msg.categories[i]">
+                      <button [disabled]="isMessageLast(msg)" *ngFor="let category of msg.categories[i]" class="btn-conversation" (click)="chooseCategory(category)">{{ category }}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="botTyping">
+          <div class="message-wrapper them">
+            <div class="circle-wrapper"></div>
+            <div class="text-wrapper">
+              <div class="wave">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="connectionError">
+        <div class="center">
+          <img class="spin-reverse back" src="..\assets\loading_small_under.png">
+          <img class="slow-spin front" src="..\assets\loading_small.png">
+        </div>
+        <h2 class="water-sign">Please wait. Loading...</h2>
+        <button class="btn-refresh" type="button" (click)="refreshConnection()" [disabled]="refreshing">
+          <i class="fa fa-spinner fa-spin" *ngIf="refreshing"></i>
+          Refresh</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!connectionError" class="bottom" id="bottom">
+    <input [disabled]="conversationFinished" type="text" class="input" id="input" [(ngModel)]="userMessage" (keyup)="handleKeyUp($event)">
+    <button [disabled]="conversationFinished" type="submit" #sendMessageButton class="send" id="send" (click)="sendMessage(userMessage)" [disabled]="sendingRequest"></button>
+  </div>
+</div>
